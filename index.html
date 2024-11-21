@@ -1,197 +1,161 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đây là Bí Mật</title>
+    <title>Bí Mật</title>
     <style>
-        /* Toàn bộ nền và bố cục */
         body {
-            background-color: #f8bbd0; /* Màu hồng nhạt, dễ chịu */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-            color: white;
+            background-color: #f7a8d8;
+            font-family: Arial, sans-serif;
             text-align: center;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
+            margin: 0;
+            padding: 0;
         }
 
-        /* Hiệu ứng bong bóng */
-        .bubble {
+        #login {
             position: absolute;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.8);
-            animation: bubble-animation 6s infinite;
-            pointer-events: none;
-        }
-
-        @keyframes bubble-animation {
-            0% { transform: translateY(0) scale(0.5); opacity: 0.7; }
-            100% { transform: translateY(-800px) scale(1.5); opacity: 0; }
-        }
-
-        /* Hiệu ứng pháo bông */
-        .firework {
-            position: absolute;
-            bottom: 0;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            width: 12px;
-            height: 12px;
-            background-color: #ff4081; /* Màu sắc tươi sáng cho pháo bông */
-            border-radius: 50%;
-            animation: firework-animation 2s forwards;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-        }
-
-        @keyframes firework-animation {
-            0% { opacity: 1; transform: translateY(0); }
-            100% { opacity: 0; transform: translateY(-500px) scale(1.5); }
-        }
-
-        /* Hình vuông giữa màn hình */
-        #square {
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
             width: 300px;
-            height: 300px;
-            background-color: #e91e63; /* Màu hồng đậm */
-            margin: 20px auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            display: none;
-        }
-
-        /* Hình ảnh sinh nhật */
-        #birthdayImage {
-            width: 300px;
-            height: 300px;
-            margin-top: 20px;
-            border-radius: 12px;
-            display: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Lời chúc xuất hiện dần dần */
-        #messageContent p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            line-height: 1.5;
-            opacity: 0;
-            transition: opacity 1s ease-out;
-            transform: translateY(50px);
-        }
-
-        /* Flash sáng khi nhập đúng mật khẩu */
-        .flash {
-            position: absolute;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(255, 255, 255, 0.7);
-            top: 0;
-            left: 0;
-            display: none;
-            animation: flash-animation 0.3s ease-out;
-        }
-
-        @keyframes flash-animation {
-            0% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        /* Giao diện nhập mật khẩu */
-        .input-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            text-align: center;
         }
 
         input[type="password"] {
             padding: 10px;
-            margin-top: 20px;
-            font-size: 1.2rem;
-            border-radius: 8px;
-            border: none;
-            outline: none;
-            width: 250px;
+            width: 80%;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
         }
 
         button {
             padding: 10px 20px;
-            margin-top: 10px;
-            background-color: #e91e63;
-            color: white;
-            font-size: 1.2rem;
+            background-color: #ff66b2;
             border: none;
-            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
             cursor: pointer;
         }
 
         button:hover {
-            background-color: #c2185b;
+            background-color: #ff3385;
         }
+
+        #message {
+            display: none;
+            color: white;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        #message p {
+            margin: 10px 0;
+        }
+
+        .balloon {
+            position: absolute;
+            border-radius: 50%;
+            background-color: #ff66b2;
+            width: 50px;
+            height: 50px;
+            animation: float 4s infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-50vh);
+                opacity: 0;
+            }
+        }
+
+        .firework {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            animation: firework 2s infinite;
+        }
+
+        @keyframes firework {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
     </style>
 </head>
 <body>
-    <!-- Phần nhập mật khẩu -->
-    <div class="input-container">
-        <input type="password" id="password" placeholder="Nhập mật khẩu" />
-        <button onclick="checkPassword()">Xác nhận</button>
-    </div>
 
-    <!-- Nội dung lời chúc khi mật khẩu đúng -->
-    <div id="message" class="hidden">
-        <div id="flash" class="flash"></div> <!-- Hiệu ứng flash khi nhập mật khẩu đúng -->
-        <div id="messageContent">
-            <p>Chị Xuka oiii, nay là sinh nhật của một người siêu xinh đẹp và dễ thương. Vậy nên đẹp gái thì hong có được buồn vì bất cứ điều gì. Phải nói là một người siêu xinh đẹp luôn, hy vọng đọc đến đây chị sẽ cười.</p>
-            <p>Chắc là hong bất ngờ nữa òi đúng hông, em đã xem threads bài mới nhất của chị, nên em quyết tâm sẽ dành tặng cho chị lại cái thư nàyyy.</p>
-            <p>Đừng có buồn vì bất cú điều gì nhennnn, cô chủ của 2Bar tràn đầy năng lượng thì phải vui lên chớ, mọi người xung quanh luôn yêu thương chị mò, đúng hông nè!</p>
-            <p>Nhớ là chúng mình còn cái hẹn, hoặc nếu em chưa ra Đà Nẵng mà chị có vào SG í thì em nguyện dẫn chị đi cà hê bệt, đi nhậu... Cho quên sầu luônnnnnn</p>
-            <p>from: người bí ẩn đáng iu</p>
-        </div>
-        <div id="square"></div> <!-- Hình vuông hiển thị khi nhập đúng mật khẩu -->
-        <img id="birthdayImage" src="https://kieukimyen.github.io/monquabimat/image.jpeg" alt="Sinh nhật" />
-    </div>
+<div id="login">
+    <input type="password" id="password" placeholder="Nhập mật khẩu">
+    <button onclick="checkPassword()">Mở Bí Mật</button>
+</div>
 
-    <script>
-        // Tạo bong bóng bay
-        function createBubbles() {
-            const body = document.querySelector('body');
-            for (let i = 0; i < 10; i++) {
-                let bubble = document.createElement('div');
-                bubble.classList.add('bubble');
-                bubble.style.width = Math.random() * 40 + 'px';
-                bubble.style.height = bubble.style.width;
-                bubble.style.left = Math.random() * 100 + 'vw';
-                body.appendChild(bubble);
-            }
+<div id="message">
+    <p>Chị Xuka oiii, nay là sinh nhật của một người siêu xinh đẹp và dễ thương. Vậy nên đẹp gái thì hong có được buồn vì bất cứ điều gì. Phải nói là một người siêu xinh đẹp luôn, hy vọng đọc đến đây chị sẽ cười. Chắc là hong bất ngờ nữa òi đúng hông, em đã xem threads bài mới nhất của chị, nên em quyết tâm sẽ dành tặng cho chị lại cái thư nàyyy. Đừng có buồn vì bất cú điều gì nhennnn, cô chủ của 2Bar tràn đầy năng lượng thì phải vui lên chớ, mọi người xung quanh luôn yêu thương chị mò, đúng hông nè! Nhớ là chúng mình còn cái hẹn, hoặc nếu em chưa ra Đà Nẵng mà chị có vào SG í thì em nguyện dẫn chị đi cà hê bệt, đi nhậu... Cho quên sầu luônnnnnn</p>
+    <p>from: người bí ẩn đáng iu</p>
+</div>
+
+<script>
+    // Tạo hiệu ứng bong bóng
+    function createBalloons() {
+        for (let i = 0; i < 5; i++) {
+            let balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            balloon.style.left = `${Math.random() * 100}%`;
+            balloon.style.animationDelay = `${Math.random() * 2}s`;
+            document.body.appendChild(balloon);
         }
+    }
 
-        // Tạo pháo bông
-        function createFireworks() {
-            const body = document.querySelector('body');
-            for (let i = 0; i < 5; i++) {
-                let firework = document.createElement('div');
-                firework.classList.add('firework');
-                firework.style.left = Math.random() * 100 + 'vw';
-                body.appendChild(firework);
-            }
+    // Tạo hiệu ứng pháo bông
+    function createFireworks() {
+        for (let i = 0; i < 3; i++) {
+            let firework = document.createElement('div');
+            firework.classList.add('firework');
+            firework.style.left = `${Math.random() * 100}%`;
+            firework.style.top = `${Math.random() * 100}%`;
+            firework.style.animationDelay = `${Math.random() * 1}s`;
+            document.body.appendChild(firework);
         }
+    }
 
-        // Phát âm thanh
-        function playSound() {
-            const audio = new Audio('https://www.soundjay.com/button/beep-07.wav');
-            audio.play();
+    // Kiểm tra mật khẩu
+    function checkPassword() {
+        let password = document.getElementById('password').value;
+        if (password === '3979') {
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('message').style.display = 'block';
+            createBalloons();
+            createFireworks();
+        } else {
+            alert('Mật khẩu không đúng!');
         }
+    }
+</script>
 
-        // Kiểm tra mật khẩu và hiển thị nội dung
-        function checkPassword() {
-            const password = document.getElementById("password").value;
-            const message = document.getElementById("message");
-            const square = document.getElementById("square");
-            const birthdayImage = document.getElementById("birthdayImage");
-            const passwordField = document.getElementById("password");
-            const button = document
+</body>
+</html>
