@@ -5,52 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đây là Bí Mật</title>
     <style>
-        /* CSS chung */
+        /* Toàn bộ nền và bố cục */
         body {
-            background-color: #f0c0d1; /* Màu nền hồng */
+            background-color: #f8bbd0; /* Màu hồng nhạt, dễ chịu */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             color: white;
             text-align: center;
             flex-direction: column;
             position: relative;
-        }
-
-        /* Phần lời chúc */
-        #messageContent p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            line-height: 1.5;
-            opacity: 0;
-            transition: opacity 1s ease-out;
-        }
-
-        /* Phần vuông giữa màn hình */
-        #square {
-            width: 300px;
-            height: 300px;
-            background-color: #ff69b4; /* Màu hồng đậm */
-            margin: 20px auto;
-            border-radius: 10px;
-            display: none; /* Ẩn đi cho đến khi nhập đúng mật khẩu */
-        }
-
-        /* Hình ảnh sinh nhật là hình vuông */
-        #birthdayImage {
-            display: none;
-            width: 300px;
-            height: 300px;
-            margin-top: 20px;
-            border-radius: 10px;
-        }
-
-        /* Hiển thị khi nhập đúng mật khẩu */
-        #message {
-            display: none;
+            overflow: hidden;
         }
 
         /* Hiệu ứng bong bóng */
@@ -59,17 +27,12 @@
             border-radius: 50%;
             background-color: rgba(255, 255, 255, 0.8);
             animation: bubble-animation 6s infinite;
+            pointer-events: none;
         }
 
         @keyframes bubble-animation {
-            0% {
-                transform: translateY(0) scale(0.5);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(-800px) scale(1.5);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) scale(0.5); opacity: 0.7; }
+            100% { transform: translateY(-800px) scale(1.5); opacity: 0; }
         }
 
         /* Hiệu ứng pháo bông */
@@ -78,30 +41,56 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 10px;
-            height: 10px;
-            background-color: yellow;
+            width: 12px;
+            height: 12px;
+            background-color: #ff4081; /* Màu sắc tươi sáng cho pháo bông */
             border-radius: 50%;
             animation: firework-animation 2s forwards;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
         }
 
         @keyframes firework-animation {
-            0% {
-                transform: translateX(-50%) translateY(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(-50%) translateY(-500px);
-                opacity: 0;
-            }
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-500px) scale(1.5); }
         }
 
-        /* Hiệu ứng ánh sáng */
+        /* Hình vuông giữa màn hình */
+        #square {
+            width: 300px;
+            height: 300px;
+            background-color: #e91e63; /* Màu hồng đậm */
+            margin: 20px auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        /* Hình ảnh sinh nhật */
+        #birthdayImage {
+            width: 300px;
+            height: 300px;
+            margin-top: 20px;
+            border-radius: 12px;
+            display: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Lời chúc xuất hiện dần dần */
+        #messageContent p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            opacity: 0;
+            transition: opacity 1s ease-out;
+            transform: translateY(50px);
+        }
+
+        /* Flash sáng khi nhập đúng mật khẩu */
         .flash {
             position: absolute;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(255, 255, 255, 0.6);
+            background-color: rgba(255, 255, 255, 0.7);
             top: 0;
             left: 0;
             display: none;
@@ -112,11 +101,50 @@
             0% { opacity: 1; }
             100% { opacity: 0; }
         }
+
+        /* Giao diện nhập mật khẩu */
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="password"] {
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            width: 250px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #e91e63;
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c2185b;
+        }
     </style>
 </head>
 <body>
+    <!-- Phần nhập mật khẩu -->
+    <div class="input-container">
+        <input type="password" id="password" placeholder="Nhập mật khẩu" />
+        <button onclick="checkPassword()">Xác nhận</button>
+    </div>
+
+    <!-- Nội dung lời chúc khi mật khẩu đúng -->
     <div id="message" class="hidden">
-        <div id="flash" class="flash"></div> <!-- Hiệu ứng ánh sáng khi mật khẩu đúng -->
+        <div id="flash" class="flash"></div> <!-- Hiệu ứng flash khi nhập mật khẩu đúng -->
         <div id="messageContent">
             <p>Chị Xuka oiii, nay là sinh nhật của một người siêu xinh đẹp và dễ thương. Vậy nên đẹp gái thì hong có được buồn vì bất cứ điều gì. Phải nói là một người siêu xinh đẹp luôn, hy vọng đọc đến đây chị sẽ cười.</p>
             <p>Chắc là hong bất ngờ nữa òi đúng hông, em đã xem threads bài mới nhất của chị, nên em quyết tâm sẽ dành tặng cho chị lại cái thư nàyyy.</p>
@@ -124,18 +152,12 @@
             <p>Nhớ là chúng mình còn cái hẹn, hoặc nếu em chưa ra Đà Nẵng mà chị có vào SG í thì em nguyện dẫn chị đi cà hê bệt, đi nhậu... Cho quên sầu luônnnnnn</p>
             <p>from: người bí ẩn đáng iu</p>
         </div>
-        <div id="square" class="square"></div>
-        <img id="birthdayImage" src="https://kieukimyen.github.io/monquabimat/image.jpeg" alt="Sinh nhật" class="hidden">
-    </div>
-
-    <!-- Phần nhập mật khẩu -->
-    <div>
-        <input type="password" id="password" placeholder="Nhập mật khẩu" />
-        <button onclick="checkPassword()">Xác nhận</button>
+        <div id="square"></div> <!-- Hình vuông hiển thị khi nhập đúng mật khẩu -->
+        <img id="birthdayImage" src="https://kieukimyen.github.io/monquabimat/image.jpeg" alt="Sinh nhật" />
     </div>
 
     <script>
-        // Hiển thị bong bóng ngẫu nhiên
+        // Tạo bong bóng bay
         function createBubbles() {
             const body = document.querySelector('body');
             for (let i = 0; i < 10; i++) {
@@ -148,7 +170,7 @@
             }
         }
 
-        // Hiển thị pháo bông ngẫu nhiên
+        // Tạo pháo bông
         function createFireworks() {
             const body = document.querySelector('body');
             for (let i = 0; i < 5; i++) {
@@ -159,51 +181,17 @@
             }
         }
 
-        // Phát âm thanh bất ngờ
+        // Phát âm thanh
         function playSound() {
             const audio = new Audio('https://www.soundjay.com/button/beep-07.wav');
             audio.play();
         }
 
-        // Kiểm tra mật khẩu
+        // Kiểm tra mật khẩu và hiển thị nội dung
         function checkPassword() {
             const password = document.getElementById("password").value;
             const message = document.getElementById("message");
             const square = document.getElementById("square");
             const birthdayImage = document.getElementById("birthdayImage");
             const passwordField = document.getElementById("password");
-            const button = document.querySelector("button");
-            const flash = document.getElementById("flash");
-
-            if (password === "3979") {
-                // Mở màn bất ngờ: flash và âm thanh
-                flash.style.display = "block";
-                playSound();
-                setTimeout(() => flash.style.display = "none", 300); // Tắt flash sau 0.3s
-
-                message.style.display = "block";  // Hiển thị lời chúc
-                square.style.display = "block";   // Hiển thị hình vuông
-                birthdayImage.style.display = "block"; // Hiển thị hình ảnh sinh nhật
-
-                // Ẩn trường nhập mật khẩu và nút xác nhận
-                passwordField.style.display = "none";
-                button.style.display = "none";
-
-                // Tạo bong bóng và pháo bông
-                createBubbles();
-                createFireworks();
-
-                // Hiển thị lời chúc từ từ
-                let paragraphs = document.querySelectorAll("#messageContent p");
-                let delay = 0;
-                paragraphs.forEach(p => {
-                    setTimeout(() => p.style.opacity = 1, delay);
-                    delay += 1500; // Hiển thị từng đoạn sau mỗi 1.5s
-                });
-            } else {
-                alert("Sai mật khẩu!");
-            }
-        }
-    </script>
-</body>
-</html>
+            const button = document
