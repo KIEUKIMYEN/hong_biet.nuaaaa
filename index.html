@@ -3,145 +3,175 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday XuKa!</title>
+  <title>Chúc mừng sinh nhật</title>
   <style>
-    /* Căn chỉnh toàn trang */
     body {
       margin: 0;
       padding: 0;
-      text-align: center;
-      background: linear-gradient(to bottom, #ffcccc, #ffe6e6);
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
       overflow: hidden;
-      font-family: Arial, sans-serif;
     }
 
-    h1 {
-      color: #ff66b3;
-      font-size: 3rem;
-      margin-top: 20px;
-      text-shadow: 2px 2px 4px #ff0066;
+    h1, p {
+      text-align: center;
+      color: white;
     }
 
-    p {
-      font-size: 1.5rem;
-      color: #ff3385;
-      margin: 10px;
-    }
-
-    img {
-      max-width: 300px;
-      height: auto;
-      border-radius: 15px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      margin: 20px auto;
-    }
-
-    /* Hiệu ứng pháo bông */
-    canvas {
+    #fireworks-container {
       position: absolute;
       top: 0;
       left: 0;
+      width: 100%;
+      height: 100%;
       z-index: 0;
     }
 
-    /* Hiệu ứng bong bóng */
-    .bubble {
+    #balloons {
       position: absolute;
-      bottom: -100px;
-      background: rgba(255, 182, 193, 0.7);
-      border-radius: 50%;
-      animation: rise 10s infinite;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       z-index: -1;
+      overflow: hidden;
     }
 
-    @keyframes rise {
+    .balloon {
+      position: absolute;
+      bottom: -100px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      animation: float 5s infinite;
+    }
+
+    @keyframes float {
       0% {
-        transform: translateY(0) scale(0.5);
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-100vh) scale(1.2);
       }
       100% {
-        transform: translateY(-120vh) scale(1.2);
+        transform: translateY(-200vh) scale(1);
       }
+    }
+
+    #content {
+      display: none;
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    #content img {
+      max-width: 90%;
+      height: auto;
+      border-radius: 10px;
+      margin: 20px auto;
+    }
+
+    #password-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    #password-container input {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    #password-container button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    #password-container button:hover {
+      background-color: #ee5253;
     }
   </style>
 </head>
 <body>
-  <h1>🎉 Happy Birthday XuKa! 🎉</h1>
-  <img src="https://raw.githubusercontent.com/KIEUKIMYEN/monquabimat/main/image.jpeg" alt="Happy Birthday Image">
-  <p>Chúc chị tuổi mới thành công, hạnh phúc, luôn vui vẻ và có thật nhiều sức khoẻ!</p>
-  <p>Chúc 2Bar luôn đông khách. Chờ ngày em ra 2Bar nhậu đến 4h sáng với chị nhé!</p>
+  <!-- Fireworks -->
+  <div id="fireworks-container"></div>
 
-  <!-- Nhạc nền -->
-  <audio autoplay loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-birthday.mp3" type="audio/mpeg">
-    Trình duyệt của bạn không hỗ trợ âm thanh.
-  </audio>
+  <!-- Balloons -->
+  <div id="balloons">
+    <div class="balloon" style="width: 50px; height: 50px; left: 10%; animation-duration: 5s;"></div>
+    <div class="balloon" style="width: 70px; height: 70px; left: 30%; animation-duration: 6s;"></div>
+    <div class="balloon" style="width: 40px; height: 40px; left: 50%; animation-duration: 4.5s;"></div>
+    <div class="balloon" style="width: 60px; height: 60px; left: 70%; animation-duration: 5.5s;"></div>
+    <div class="balloon" style="width: 30px; height: 30px; left: 90%; animation-duration: 4s;"></div>
+  </div>
 
-  <!-- Canvas cho pháo bông -->
-  <canvas id="fireworks"></canvas>
+  <!-- Password Input -->
+  <div id="password-container">
+    <h1>Chúc mừng sinh nhật!</h1>
+    <p>Nhập mật khẩu để mở khóa lời chúc bất ngờ:</p>
+    <input type="password" id="password" placeholder="Nhập mật khẩu">
+    <button onclick="checkPassword()">Mở khóa</button>
+  </div>
 
-  <!-- Hiệu ứng bong bóng -->
+  <!-- Content -->
+  <div id="content">
+    <h1>Chị XuKa ơi!</h1>
+    <p>
+      Nay là sinh nhật của một người siêu xinh đẹp và dễ thương. 
+      Vậy nên đẹp gái thì không được buồn vì bất cứ điều gì. 
+      Phải nói là một người siêu xinh đẹp luôn, hy vọng đọc đến đây chị sẽ cười.  
+      Chúc chị tuổi mới tràn đầy năng lượng, cô chủ 2Bar luôn yêu đời, thành công và hạnh phúc nhé!
+    </p>
+    <img src="image.jpeg" alt="Chúc mừng sinh nhật">
+    <p><strong>From: Người bí ẩn đáng iu</strong></p>
+  </div>
+
+  <!-- Scripts -->
   <script>
-    for (let i = 0; i < 30; i++) {
-      const bubble = document.createElement('div');
-      bubble.className = 'bubble';
-      bubble.style.width = `${Math.random() * 50 + 20}px`;
-      bubble.style.height = bubble.style.width;
-      bubble.style.left = `${Math.random() * 100}vw`;
-      bubble.style.animationDuration = `${Math.random() * 5 + 5}s`;
-      document.body.appendChild(bubble);
-    }
-
-    // Hiệu ứng pháo bông
-    const canvas = document.getElementById('fireworks');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    class Firework {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.radius = Math.random() * 4 + 1;
-        this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
-        this.alpha = 1;
-        this.velocityX = (Math.random() - 0.5) * 6;
-        this.velocityY = (Math.random() - 0.5) * 6;
-      }
-
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.globalAlpha = this.alpha;
-        ctx.fill();
-        ctx.closePath();
-      }
-
-      update() {
-        this.x += this.velocityX;
-        this.y += this.velocityY;
-        this.alpha -= 0.01;
+    function checkPassword() {
+      const password = document.getElementById('password').value;
+      if (password === '8683') {
+        document.getElementById('password-container').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+        startFireworks();
+      } else {
+        alert('Sai mật khẩu! Vui lòng thử lại.');
       }
     }
 
-    let fireworks = [];
-    function animateFireworks() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      fireworks = fireworks.filter(fw => fw.alpha > 0);
-      fireworks.forEach(fw => {
-        fw.update();
-        fw.draw();
-      });
-      requestAnimationFrame(animateFireworks);
+    function startFireworks() {
+      const container = document.getElementById('fireworks-container');
+      const colors = ['#ff4d4d', '#ffeaa7', '#74b9ff', '#a29bfe', '#55efc4'];
+
+      setInterval(() => {
+        const fireworks = document.createElement('div');
+        fireworks.style.position = 'absolute';
+        fireworks.style.left = Math.random() * 100 + '%';
+        fireworks.style.top = Math.random() * 100 + '%';
+        fireworks.style.width = '10px';
+        fireworks.style.height = '10px';
+        fireworks.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        fireworks.style.borderRadius = '50%';
+        fireworks.style.animation = 'explode 1s ease-out forwards';
+        container.appendChild(fireworks);
+
+        setTimeout(() => {
+          fireworks.remove();
+        }, 1000);
+      }, 200);
+
+      const style = document.createElement('style');
+      style.innerHTML = `
+        @keyframes explode {
+          0% { transform: scale(1); opacity: 1; }
+          100% { transform: scale(10); opacity: 0; }
+        }
+      `;
+      document.head.appendChild(style);
     }
-
-    canvas.addEventListener('click', e => {
-      for (let i = 0; i < 30; i++) {
-        fireworks.push(new Firework(e.clientX, e.clientY));
-      }
-    });
-
-    animateFireworks();
   </script>
 </body>
 </html>
