@@ -60,17 +60,32 @@
             border-radius: 10px;
             z-index: 1;
         }
-        .heart {
+        .fireworks {
             position: absolute;
-            font-size: 50px;
-            color: red;
-            animation: heartAnimation 1.5s infinite;
-            z-index: 3;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            display: none;
+            font-size: 48px;
         }
-        @keyframes heartAnimation {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.5); opacity: 0.5; }
-            100% { transform: scale(1); opacity: 1; }
+        .fireworks.active {
+            display: block;
+            animation: fireworks 2s ease-out infinite;
+        }
+        @keyframes fireworks {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+                top: 50%;
+                left: 50%;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+                top: 10%;
+                left: 10%;
+            }
         }
         .letter {
             display: inline-block;
@@ -105,32 +120,6 @@
             0% { opacity: 1; }
             100% { opacity: 0; }
         }
-        @keyframes fireworks {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-                top: 50%;
-                left: 50%;
-            }
-            100% {
-                transform: scale(3);
-                opacity: 0;
-                top: 10%;
-                left: 10%;
-            }
-        }
-        .fireworks {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            animation: fireworks 2s ease-out infinite;
-            display: none;
-        }
-        .fireworks.active {
-            display: block;
-        }
     </style>
 </head>
 <body>
@@ -152,13 +141,25 @@
 
 </div>
 
+<!-- Mã JavaScript -->
 <script>
-    const passwordField = document.getElementById("password");
+    // Khởi tạo các phần tử
+    const passwordField = document.createElement("input");
+    passwordField.type = "password";
+    passwordField.placeholder = "Nhập mật khẩu...";
+    passwordField.style.position = "absolute";
+    passwordField.style.top = "20px";
+    passwordField.style.left = "50%";
+    passwordField.style.transform = "translateX(-50%)";
+    passwordField.style.fontSize = "18px";
+    passwordField.style.padding = "10px";
+    document.body.appendChild(passwordField);
+
     const messageDiv = document.getElementById("message");
     const letterDiv = document.getElementById("letter");
     const fireworks = document.getElementById("fireworks");
 
-    // Kiểm tra mật khẩu và hiện thư khi đúng
+    // Hàm kiểm tra mật khẩu
     function checkPassword() {
         const password = passwordField.value;
         if (password === "3979") {
@@ -172,14 +173,15 @@
 
             // Bắt đầu hiệu ứng pháo bông
             fireworks.classList.add("active");
-
-            // Ẩn trái tim nếu cần
         } else {
             // Ẩn thư và hiệu ứng pháo bông nếu mật khẩu sai
             letterDiv.classList.add("hidden");
             fireworks.classList.remove("active");
         }
     }
+
+    // Kiểm tra mật khẩu khi người dùng nhập xong
+    passwordField.addEventListener("input", checkPassword);
 </script>
 
 </body>
