@@ -19,22 +19,27 @@
             position: relative;
             text-align: center;
             max-width: 90%;
-            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         #message {
             display: none;
             background: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 10px;
-            width: 100%;
-            max-width: 500px;
-            margin: auto;
+            width: 280px;
             font-size: 18px;
             line-height: 1.6;
             color: #333;
             opacity: 0;
             transform: scale(0);
             transition: opacity 1s, transform 1s;
+            position: relative;
+            z-index: 2;
+            margin-top: 10px;
+            overflow-y: auto;
+            max-height: 150px;
         }
         .hidden {
             display: none;
@@ -44,83 +49,136 @@
             opacity: 1;
             transform: scale(1);
         }
+        #popup-image {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            max-width: 100%;
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+            z-index: 1;
+        }
         .heart {
             position: absolute;
             font-size: 50px;
             color: red;
             animation: heartAnimation 1.5s infinite;
+            z-index: 3;
         }
         @keyframes heartAnimation {
             0% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.5); opacity: 0.5; }
             100% { transform: scale(1); opacity: 1; }
         }
-        #popup-image {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            max-width: 100%;
-            width: 400px;
-            height: auto;
+        .letter {
+            display: inline-block;
+            width: 300px;
+            height: 300px;
+            background: white;
             border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            transform: scale(0);
+            opacity: 0;
+            transition: all 1s ease-in-out;
+            text-align: left;
         }
-        .message-content p {
-            font-size: 20px;
-            line-height: 1.8;
-            color: #333;
-            margin: 15px 0;
+        .letter.reveal {
+            transform: scale(1);
+            opacity: 1;
         }
-        .message-content p:first-child {
-            font-weight: bold;
-            font-size: 24px;
+        .letter::before {
+            content: "Mở ra...";
+            font-size: 22px;
+            color: #ff1493;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: fadeOut 2s ease-out forwards;
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        @keyframes fireworks {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+                top: 50%;
+                left: 50%;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+                top: 10%;
+                left: 10%;
+            }
+        }
+        .fireworks {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            animation: fireworks 2s ease-out infinite;
+            display: none;
+        }
+        .fireworks.active {
+            display: block;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Hình ảnh hiển thị trên màn hình -->
+    <!-- Hình ảnh bên cạnh -->
     <img src="https://kieukimyen.github.io/hong_biet.nuaaaa/image.jpeg" id="popup-image" alt="Popup Image">
 
-    <!-- Phần nhập mật khẩu -->
-    <div class="message-content">
-        <input type="password" id="password" placeholder="Nhập mật khẩu" oninput="checkPassword()">
+    <!-- Lá thư với hiệu ứng mở -->
+    <div class="letter hidden" id="letter">
+        <div id="message" class="hidden">
+            <p>Chị Xuka oiii, nay là sinh nhật của một người siêu xinh đẹp và dễ thương. Vậy nên đẹp gái thì hong có được buồn vì bất cứ điều gì. Phải nói là một người siêu xinh đẹp luôn, hy vọng đọc đến đây chị sẽ cười. Chắc là hong bất ngờ nữa òi đúng hông, em đã xem threads bài mới nhất của chị, nên em quyết tâm sẽ dành tặng cho chị lại cái thư nàyyy. Đừng có buồn vì bất cú điều gì nhennnn, cô chủ của 2Bar tràn đầy năng lượng thì phải vui lên chớ, mọi người xung quanh luôn yêu thương chị mò, đúng hông nè! Nhớ là chúng mình còn cái hẹn, hoặc nếu em chưa ra Đà Nẵng mà chị có vào SG í thì em nguyện dẫn chị đi cà hê bệt, đi nhậu... Cho quên sầu luônnnnnn</p>
+            <p>from: người bí ẩn đáng iu</p>
+        </div>
     </div>
 
-    <!-- Thư hiển thị nội dung khi mật khẩu đúng -->
-    <div id="message" class="hidden">
-        <p>Chị Xuka oiii, nay là sinh nhật của một người siêu xinh đẹp và dễ thương. Vậy nên đẹp gái thì hong có được buồn vì bất cứ điều gì. Phải nói là một người siêu xinh đẹp luôn, hy vọng đọc đến đây chị sẽ cười. Chắc là hong bất ngờ nữa òi đúng hông, em đã xem threads bài mới nhất của chị, nên em quyết tâm sẽ dành tặng cho chị lại cái thư nàyyy. Đừng có buồn vì bất cú điều gì nhennnn, cô chủ của 2Bar tràn đầy năng lượng thì phải vui lên chớ, mọi người xung quanh luôn yêu thương chị mò, đúng hông nè! Nhớ là chúng mình còn cái hẹn, hoặc nếu em chưa ra Đà Nẵng mà chị có vào SG í thì em nguyện dẫn chị đi cà hê bệt, đi nhậu... Cho quên sầu luônnnnnn</p>
-        <p>from: người bí ẩn đáng iu</p>
-    </div>
-    
-    <!-- Hiệu ứng trái tim -->
-    <div class="heart" id="heart">💖</div>
+    <!-- Hiệu ứng pháo bông -->
+    <div class="fireworks" id="fireworks">&#x1F387;&#x1F386;&#x1F387;</div>
+
 </div>
 
 <script>
     const passwordField = document.getElementById("password");
     const messageDiv = document.getElementById("message");
-    const heart = document.getElementById("heart");
+    const letterDiv = document.getElementById("letter");
+    const fireworks = document.getElementById("fireworks");
 
-    // Kiểm tra mật khẩu và hiện nội dung khi đúng
+    // Kiểm tra mật khẩu và hiện thư khi đúng
     function checkPassword() {
         const password = passwordField.value;
         if (password === "3979") {
+            // Hiện thư
+            letterDiv.classList.remove("hidden");
+            letterDiv.classList.add("reveal");
+
+            // Hiện nội dung thư
             messageDiv.classList.remove("hidden");
             messageDiv.classList.add("reveal");
-            heart.style.display = "none"; // Ẩn trái tim sau khi mở thư
-            playSound();
-        } else {
-            messageDiv.classList.add("hidden");
-            heart.style.display = "block"; // Hiển thị trái tim nếu mật khẩu sai
-        }
-    }
 
-    // Thêm âm thanh nhẹ nhàng khi thư xuất hiện
-    function playSound() {
-        const audio = new Audio("https://www.soundjay.com/button/beep-07.wav"); // Thêm link âm thanh nhẹ
-        audio.play();
+            // Bắt đầu hiệu ứng pháo bông
+            fireworks.classList.add("active");
+
+            // Ẩn trái tim nếu cần
+        } else {
+            // Ẩn thư và hiệu ứng pháo bông nếu mật khẩu sai
+            letterDiv.classList.add("hidden");
+            fireworks.classList.remove("active");
+        }
     }
 </script>
 
