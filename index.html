@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bí Mật</title>
+    <title>Bí Mật Sinh Nhật</title>
     <style>
         body {
-            background-color: #f7a8d8;
-            font-family: Arial, sans-serif;
+            background-color: #f7a8d8; /* Nền hồng */
+            font-family: 'Arial', sans-serif;
             text-align: center;
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
 
         #login {
@@ -21,7 +22,7 @@
             padding: 20px;
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             width: 300px;
             text-align: center;
         }
@@ -32,6 +33,7 @@
             margin-bottom: 20px;
             border-radius: 5px;
             border: 1px solid #ddd;
+            font-size: 16px;
         }
 
         button {
@@ -53,10 +55,18 @@
             color: white;
             font-size: 20px;
             margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
         }
 
         #message p {
             margin: 10px 0;
+            line-height: 1.8;
+        }
+
+        #message p span {
+            font-weight: bold;
         }
 
         .balloon {
@@ -105,18 +115,56 @@
             }
         }
 
+        .image-container {
+            position: relative;
+            display: inline-block;
+            width: 400px; /* Chiều rộng của hình ảnh */
+            height: 400px; /* Chiều cao của hình ảnh */
+            margin: auto;
+        }
+
+        .image-container img {
+            width: 100%; /* Đảm bảo không bị cắt xén */
+            height: 100%;
+            object-fit: cover; /* Đảm bảo hình ảnh không bị biến dạng */
+            border-radius: 10px;
+        }
+
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            z-index: 10; /* Đảm bảo chữ xuất hiện trên hình */
+        }
+
     </style>
 </head>
 <body>
 
 <div id="login">
+    <h2>Nhập mật khẩu để mở bí mật</h2>
     <input type="password" id="password" placeholder="Nhập mật khẩu">
     <button onclick="checkPassword()">Mở Bí Mật</button>
 </div>
 
 <div id="message">
-    <p>Chị Xuka oiii, nay là sinh nhật của một người siêu xinh đẹp và dễ thương. Vậy nên đẹp gái thì hong có được buồn vì bất cứ điều gì. Phải nói là một người siêu xinh đẹp luôn, hy vọng đọc đến đây chị sẽ cười. Chắc là hong bất ngờ nữa òi đúng hông, em đã xem threads bài mới nhất của chị, nên em quyết tâm sẽ dành tặng cho chị lại cái thư nàyyy. Đừng có buồn vì bất cú điều gì nhennnn, cô chủ của 2Bar tràn đầy năng lượng thì phải vui lên chớ, mọi người xung quanh luôn yêu thương chị mò, đúng hông nè! Nhớ là chúng mình còn cái hẹn, hoặc nếu em chưa ra Đà Nẵng mà chị có vào SG í thì em nguyện dẫn chị đi cà hê bệt, đi nhậu... Cho quên sầu luônnnnnn</p>
-    <p>from: người bí ẩn đáng iu</p>
+    <div class="image-container">
+        <div class="overlay-text">
+            Chị Xuka oiii, nay là sinh nhật của một người siêu xinh đẹp và dễ thương. Vậy nên đẹp gái thì hong có được buồn vì bất cứ điều gì. <br>
+            Phải nói là một người siêu xinh đẹp luôn, hy vọng đọc đến đây chị sẽ cười. <br>
+            Chắc là hong bất ngờ nữa òi đúng hông, em đã xem threads bài mới nhất của chị, nên em quyết tâm sẽ dành tặng cho chị lại cái thư nàyyy. <br>
+            Đừng có buồn vì bất cú điều gì nhennnn, cô chủ của 2Bar tràn đầy năng lượng thì phải vui lên chớ, mọi người xung quanh luôn yêu thương chị mò, đúng hông nè! <br>
+            Nhớ là chúng mình còn cái hẹn, hoặc nếu em chưa ra Đà Nẵng mà chị có vào SG í thì em nguyện dẫn chị đi cà hê bệt, đi nhậu... Cho quên sầu luônnnnnn <br><br>
+            from: người bí ẩn đáng iu
+        </div>
+        <img src="https://raw.githubusercontent.com/KIEUKIMYEN/hong_biet.nuaaaa/main/image.jpeg" alt="Cute Image">
+    </div>
 </div>
 
 <script>
