@@ -1,15 +1,19 @@
-#birthdayImage {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    margin-top: 20px;
-    display: none; /* Ẩn hình ảnh ban đầu */
+/* Nền hồng cho toàn bộ trang */
+body {
+    background-color: #FFB6C1; /* Màu hồng nhạt */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-.hidden {
-    display: none;
+/* Tạo khung chứa nội dung */
+.container {
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
 }
 
+/* Hiệu ứng nút nhập mật khẩu */
 input {
     padding: 10px;
     margin: 20px;
@@ -18,6 +22,7 @@ input {
     font-size: 1.2rem;
 }
 
+/* Nút gửi lời chúc */
 button {
     padding: 10px 20px;
     background-color: #FF6347;
@@ -30,6 +35,77 @@ button {
 
 button:hover {
     background-color: #FF4500;
+}
+
+/* Hiệu ứng bong bóng */
+.bubble {
+    position: absolute;
+    bottom: -50px;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    animation: bubble 5s ease-in-out infinite;
+}
+
+/* Hiệu ứng pháo bông */
+.firework {
+    position: absolute;
+    bottom: 0;
+    width: 10px;
+    height: 10px;
+    background-color: #FF6347;
+    border-radius: 50%;
+    animation: firework 1s ease-out forwards;
+}
+
+#birthdayImage {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-top: 20px;
+    display: none; /* Ẩn hình ảnh ban đầu */
+}
+
+/* Chia đều nội dung văn bản */
+#message {
+    width: 80%; /* Chiều rộng của phần tử, điều chỉnh nếu cần */
+    margin: 0 auto; /* Căn giữa */
+    line-height: 1.6; /* Khoảng cách giữa các dòng */
+    font-size: 1.1rem; /* Kích thước chữ */
+    text-align: justify; /* Căn chỉnh đều cho văn bản */
+    word-wrap: break-word; /* Chia từ khi cần thiết */
+}
+
+/* Hiệu ứng Bong bóng */
+@keyframes bubble {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-200px) scale(1.5);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(-400px) scale(2);
+        opacity: 0;
+    }
+}
+
+/* Hiệu ứng pháo bông */
+@keyframes firework {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(5) translateY(-300px);
+        opacity: 0;
+    }
+}
+
+.hidden {
+    display: none;
 }
 
 #fireworks, #bubbles {
