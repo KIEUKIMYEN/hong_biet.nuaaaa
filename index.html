@@ -1,176 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chúc mừng sinh nhật</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
-      overflow: hidden;
-    }
-
-    h1, p {
-      text-align: center;
-      color: white;
-    }
-
-    #fireworks-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
-
-    #balloons {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      overflow: hidden;
-    }
-
-    .balloon {
-      position: absolute;
-      bottom: -100px;
-      background-color: rgba(255, 255, 255, 0.7);
-      border-radius: 50%;
-      animation: float 5s infinite;
-    }
-
-    @keyframes float {
-      0% {
-        transform: translateY(0) scale(1);
-      }
-      50% {
-        transform: translateY(-100vh) scale(1.2);
-      }
-      100% {
-        transform: translateY(-200vh) scale(1);
-      }
-    }
-
-    #content {
-      display: none;
-      text-align: center;
-      margin-top: 100px;
-    }
-
-    #content img {
-      max-width: 90%;
-      height: auto;
-      border-radius: 10px;
-      margin: 20px auto;
-    }
-
-    #password-container {
-      text-align: center;
-      margin-top: 50px;
-    }
-
-    #password-container input {
-      padding: 10px;
-      font-size: 16px;
-    }
-
-    #password-container button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #ff6b6b;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    #password-container button:hover {
-      background-color: #ee5253;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Sinh Nhật</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Fireworks -->
-  <div id="fireworks-container"></div>
-
-  <!-- Balloons -->
-  <div id="balloons">
-    <div class="balloon" style="width: 50px; height: 50px; left: 10%; animation-duration: 5s;"></div>
-    <div class="balloon" style="width: 70px; height: 70px; left: 30%; animation-duration: 6s;"></div>
-    <div class="balloon" style="width: 40px; height: 40px; left: 50%; animation-duration: 4.5s;"></div>
-    <div class="balloon" style="width: 60px; height: 60px; left: 70%; animation-duration: 5.5s;"></div>
-    <div class="balloon" style="width: 30px; height: 30px; left: 90%; animation-duration: 4s;"></div>
-  </div>
-
-  <!-- Password Input -->
-  <div id="password-container">
-    <h1>Chúc mừng sinh nhật!</h1>
-    <p>Nhập mật khẩu để mở khóa lời chúc bất ngờ:</p>
-    <input type="password" id="password" placeholder="Nhập mật khẩu">
-    <button onclick="checkPassword()">Mở khóa</button>
-  </div>
-
-  <!-- Content -->
-  <div id="content">
-    <h1>Chị XuKa ơi!</h1>
-    <p>
-      Nay là sinh nhật của một người siêu xinh đẹp và dễ thương. Vậy nên đẹp gái thì không được buồn vì bất cứ điều gì. 
-      Phải nói là một người siêu xinh đẹp luôn, hy vọng đọc đến đây chị sẽ cười.  
-      Chúc chị tuổi mới tràn đầy năng lượng, cô chủ 2Bar luôn yêu đời, thành công và hạnh phúc nhé!
-    </p>
-    <img src="image.jpeg" alt="Chúc mừng sinh nhật">
-    <p><strong>From: Người bí ẩn đáng iu</strong></p>
-  </div>
-
-  <!-- Scripts -->
-  <script>
-    function checkPassword() {
-      const password = document.getElementById('password').value;
-      if (password === '8683') {
-        document.getElementById('password-container').style.display = 'none';
-        document.getElementById('content').style.display = 'block';
-        startFireworks();
-      } else {
-        alert('Sai mật khẩu! Vui lòng thử lại.');
-      }
-    }
-
-    function startFireworks() {
-      const container = document.getElementById('fireworks-container');
-      const colors = ['#ff4d4d', '#ffeaa7', '#74b9ff', '#a29bfe', '#55efc4'];
-
-      setInterval(() => {
-        const fireworks = document.createElement('div');
-        fireworks.style.position = 'absolute';
-        fireworks.style.left = Math.random() * 100 + '%';
-        fireworks.style.top = Math.random() * 100 + '%';
-        fireworks.style.width = '10px';
-        fireworks.style.height = '10px';
-        fireworks.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        fireworks.style.borderRadius = '50%';
-        fireworks.style.animation = 'explode 1s ease-out forwards';
-        container.appendChild(fireworks);
-
-        setTimeout(() => {
-          fireworks.remove();
-        }, 1000);
-      }, 200);
-
-      const style = document.createElement('style');
-      style.innerHTML = `
-        @keyframes explode {
-          0% { transform: scale(1); opacity: 1; }
-          100% { transform: scale(10); opacity: 0; }
-        }
-      `;
-      document.head.appendChild(style);
-    }
-  </script>
+    <div class="container">
+        <h1 id="title">Chúc Mừng Sinh Nhật Chị Xuka!</h1>
+        <img id="birthdayImage" src="https://raw.githubusercontent.com/KIEUKIMYEN/monquabimat/main/image.jpeg" alt="Chúc Mừng Sinh Nhật" class="hidden" />
+        <div id="message" class="hidden">
+            <p>Chị Xuka oiii, nay là sinh nhật của một người siêu xinh đẹp và dễ thương. Vậy nên đẹp gái thì hong có được buồn vì bất cứ điều gì. Phải nói là một người siêu xinh đẹp luôn, hy vọng đọc đến đây chị sẽ cười. Chắc là hong bất ngờ nữa òi đúng hông, em đã xem threads bài mới nhất của chị, nên em quyết tâm sẽ dành tặng cho chị lại cái thư nàyyy. Đừng có buồn vì bất cú điều gì nhennnn, cô chủ của 2Bar tràn đầy năng lượng thì phải vui lên chớ, mọi người xung quanh luôn yêu thương chị mò, đúng hông nè! Nhớ là chúng mình còn cái hẹn, hoặc nếu em chưa ra Đà Nẵng mà chị có vào SG í thì em nguyện dẫn chị đi cà hê bệt, đi nhậu... Cho quên sầu luônnnnnn</p>
+            <p>from: người bí ẩn đáng iu</p>
+        </div>
+        <input type="password" id="password" placeholder="Nhập pass: 8683" />
+        <button onclick="checkPassword()">Gửi Lời Chúc</button>
+    </div>
+    <div id="fireworks"></div>
+    <div id="bubbles"></div>
+    <script src="script.js"></script>
 </body>
 </html>
