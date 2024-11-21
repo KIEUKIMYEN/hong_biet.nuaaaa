@@ -58,15 +58,18 @@
             padding: 20px;
             background-color: rgba(0, 0, 0, 0.5);
             border-radius: 10px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-sizing: border-box;
         }
 
         #message p {
             margin: 10px 0;
             line-height: 1.8;
-        }
-
-        #message p span {
-            font-weight: bold;
         }
 
         .balloon {
@@ -118,29 +121,50 @@
         .image-container {
             position: relative;
             display: inline-block;
-            width: 400px; /* Chiều rộng của hình ảnh */
-            height: 400px; /* Chiều cao của hình ảnh */
+            width: 400px;
+            height: 400px;
             margin: auto;
+            margin-top: 20px;
         }
 
         .image-container img {
-            width: 100%; /* Đảm bảo không bị cắt xén */
+            width: 100%;
             height: 100%;
-            object-fit: cover; /* Đảm bảo hình ảnh không bị biến dạng */
+            object-fit: cover;
             border-radius: 10px;
         }
 
         .overlay-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
+            display: none;
+        }
+
+        /* Hiệu ứng mở thư */
+        .message-content {
+            display: none;
+            animation: openLetter 4s forwards;
+            white-space: pre-wrap; /* Đảm bảo chữ có thể xuống dòng */
+            font-size: 22px;
+            line-height: 1.8;
+            text-align: left;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            z-index: 10; /* Đảm bảo chữ xuất hiện trên hình */
+            padding: 10px;
+            max-height: 75vh; /* Giới hạn chiều cao */
+            overflow-y: auto;
+        }
+
+        @keyframes openLetter {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
     </style>
@@ -155,20 +179,20 @@
 
 <div id="message">
     <div class="image-container">
-        <div class="overlay-text">
-            Chị Xuka oiii, nay là sinh nhật của một người siêu xinh đẹp và dễ thương. Vậy nên đẹp gái thì hong có được buồn vì bất cứ điều gì. <br>
-            Phải nói là một người siêu xinh đẹp luôn, hy vọng đọc đến đây chị sẽ cười. <br>
-            Chắc là hong bất ngờ nữa òi đúng hông, em đã xem threads bài mới nhất của chị, nên em quyết tâm sẽ dành tặng cho chị lại cái thư nàyyy. <br>
-            Đừng có buồn vì bất cú điều gì nhennnn, cô chủ của 2Bar tràn đầy năng lượng thì phải vui lên chớ, mọi người xung quanh luôn yêu thương chị mò, đúng hông nè! <br>
-            Nhớ là chúng mình còn cái hẹn, hoặc nếu em chưa ra Đà Nẵng mà chị có vào SG í thì em nguyện dẫn chị đi cà hê bệt, đi nhậu... Cho quên sầu luônnnnnn <br><br>
-            from: người bí ẩn đáng iu
-        </div>
         <img src="https://raw.githubusercontent.com/KIEUKIMYEN/hong_biet.nuaaaa/main/image.jpeg" alt="Cute Image">
+    </div>
+
+    <div class="message-content" id="letterContent">
+        Chị Xuka oiii, nay là sinh nhật của một người siêu xinh đẹp và dễ thương. Vậy nên đẹp gái thì hong có được buồn vì bất cứ điều gì. <br>
+        Phải nói là một người siêu xinh đẹp luôn, hy vọng đọc đến đây chị sẽ cười. <br>
+        Chắc là hong bất ngờ nữa òi đúng hông, em đã xem threads bài mới nhất của chị, nên em quyết tâm sẽ dành tặng cho chị lại cái thư nàyyy. <br>
+        Đừng có buồn vì bất cú điều gì nhennnn, cô chủ của 2Bar tràn đầy năng lượng thì phải vui lên chớ, mọi người xung quanh luôn yêu thương chị mò, đúng hông nè! <br>
+        Nhớ là chúng mình còn cái hẹn, hoặc nếu em chưa ra Đà Nẵng mà chị có vào SG í thì em nguyện dẫn chị đi cà hê bệt, đi nhậu... Cho quên sầu luônnnnnn <br><br>
+        from: người bí ẩn đáng iu
     </div>
 </div>
 
 <script>
-    // Tạo hiệu ứng bong bóng
     function createBalloons() {
         for (let i = 0; i < 5; i++) {
             let balloon = document.createElement('div');
@@ -179,7 +203,6 @@
         }
     }
 
-    // Tạo hiệu ứng pháo bông
     function createFireworks() {
         for (let i = 0; i < 3; i++) {
             let firework = document.createElement('div');
@@ -191,12 +214,12 @@
         }
     }
 
-    // Kiểm tra mật khẩu
     function checkPassword() {
         let password = document.getElementById('password').value;
         if (password === '3979') {
             document.getElementById('login').style.display = 'none';
             document.getElementById('message').style.display = 'block';
+            document.getElementById('letterContent').style.display = 'block';
             createBalloons();
             createFireworks();
         } else {
